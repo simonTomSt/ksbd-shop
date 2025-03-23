@@ -1,29 +1,27 @@
-import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import { Link } from "@heroui/link";
-import clsx from "clsx";
+import '@/lib/styles/globals.css';
+import { Link } from '@heroui/link';
+import { Navbar } from '@heroui/navbar';
+import clsx from 'clsx';
+import { Metadata, Viewport } from 'next';
 
-import { Providers } from "./providers";
-
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
+import { UIProvider } from '@/components/providers/ui-provider';
+import { fontSans } from '@/lib/styles/fonts';
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: 'Ksbd.pl',
+    template: `%s - Ksbd.pl`,
   },
-  description: siteConfig.description,
+  description: 'Ksbd.pl',
   icons: {
-    icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 };
 
@@ -37,11 +35,11 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
+          'min-h-screen bg-background font-sans antialiased',
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <UIProvider themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
@@ -59,7 +57,7 @@ export default function RootLayout({
               </Link>
             </footer>
           </div>
-        </Providers>
+        </UIProvider>
       </body>
     </html>
   );
