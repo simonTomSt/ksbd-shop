@@ -1,8 +1,10 @@
 'use client';
+import { useRouter } from '@/lib/i18n/navigation';
 import { HeroUIProvider } from '@heroui/system';
-import { ThemeProviderProps } from 'next-themes';
-import { useRouter } from 'next/navigation';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import {
+  ThemeProvider as NextThemesProvider,
+  ThemeProviderProps,
+} from 'next-themes';
 
 type Props = {
   children: React.ReactNode;

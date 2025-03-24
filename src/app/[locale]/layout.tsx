@@ -1,10 +1,11 @@
 import '@/lib/styles/globals.css';
-import { Link } from '@heroui/link';
-import { Navbar } from '@heroui/navbar';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
 
 import { UIProvider } from '@/components/providers/ui-provider';
+import { routing } from '@/lib/i18n/routing';
 import { fontSans } from '@/lib/styles/fonts';
 
 export const metadata: Metadata = {
@@ -25,13 +26,21 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function AppLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang={locale}>
       <head />
       <body
         className={clsx(
@@ -39,25 +48,13 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <UIProvider themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
+        <NextIntlClientProvider locale={locale}>
+          <UIProvider themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
-            <footer className="w-full flex items-center justify-center py-3">
-              <Link
-                isExternal
-                className="flex items-center gap-1 text-current"
-                href="https://heroui.com?utm_source=next-app-template"
-                title="heroui.com homepage"
-              >
-                <span className="text-default-600">Powered by</span>
-                <p className="text-primary">HeroUI</p>
-              </Link>
-            </footer>
-          </div>
-        </UIProvider>
+          </UIProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
