@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import '@/lib/config/env';
+
 type Props = {
   children: ReactNode;
 };

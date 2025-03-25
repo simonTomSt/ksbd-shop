@@ -2,20 +2,22 @@ import '@/lib/styles/globals.css';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
-import { UIProvider } from '@/components/providers/ui-provider';
 import { routing } from '@/lib/i18n/routing';
 import { fontSans } from '@/lib/styles/fonts';
+import { UIProvider } from '@/modules/providers/UIPovider';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ksbd.pl',
+    default:
+      'KSBD – Kompleksowy System Budowy Domu | Nowoczesne Materiały Budowlane Przyszłości',
     template: `%s - Ksbd.pl`,
   },
-  description: 'Ksbd.pl',
+  description:
+    'KSBD – Kompleksowy System Budowy Domu | Nowoczesne Materiały Budowlane Przyszłości',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/images/logo-compact.png',
   },
 };
 
@@ -36,7 +38,7 @@ export default async function AppLayout({
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
-    notFound();
+    redirect(routing.defaultLocale);
   }
 
   return (
@@ -49,10 +51,11 @@ export default async function AppLayout({
         )}
       >
         <NextIntlClientProvider locale={locale}>
-          <UIProvider themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
+          <UIProvider
+            locale={`${locale}-${locale.toUpperCase()}`}
+            themeProps={{ attribute: 'class', defaultTheme: 'light' }}
+          >
+            {children}
           </UIProvider>
         </NextIntlClientProvider>
       </body>
