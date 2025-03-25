@@ -1,19 +1,13 @@
-// import { retrieveCustomer } from "@lib/data/customer"
-// import { Toaster } from "@medusajs/ui"
-// import AccountLayout from "@modules/account/templates/account-layout"
+import { getCurrentUser } from '@/lib/auth/auth';
 
-// export default async function AccountPageLayout({
-//   dashboard,
-//   login,
-// }: {
-//   dashboard?: React.ReactNode
-//   login?: React.ReactNode
-// }) {
-//   const customer = await retrieveCustomer().catch(() => null)
+export default async function AccountPageLayout({
+  dashboard,
+  auth,
+}: {
+  dashboard?: React.ReactNode;
+  auth?: React.ReactNode;
+}) {
+  const currentUser = await getCurrentUser();
 
-//   return (
-//     <AccountLayout customer={customer}>
-//       {customer ? dashboard : login}
-//     </AccountLayout>
-//   )
-// }
+  return <div>{currentUser ? dashboard : auth}</div>;
+}
