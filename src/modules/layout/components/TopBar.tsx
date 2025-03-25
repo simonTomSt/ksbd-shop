@@ -1,0 +1,113 @@
+import {
+  HeartIcon,
+  MagnifyingGlassIcon,
+  ShoppingCartIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
+import { Button } from '@heroui/button';
+import { Divider } from '@heroui/divider';
+import { Input } from '@heroui/input';
+import { User } from '@heroui/user';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+import { ThemeSwitcher } from './ThemeSwitcher';
+
+import { pathnames } from '@/lib/config/pathnames';
+import { UILink } from '@/modules/common/UILink';
+
+export const TopBar = () => {
+  const t = useTranslations('header');
+
+  return (
+    <div className="hidden sm:flex z-40 w-full h-auto items-center justify-center sticky top-0 inset-x-0 border-b border-divider backdrop-blur-lg backdrop-saturate-150 bg-background/70">
+      <div className="flex justify-between container mx-auto max-w-7xl px-6 h-[90px] lg:grid grid-cols-3 items-center">
+        <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border pr-4">
+          <UILink href="/">
+            <Image alt="logo" height={100} src="/images/logo.png" width={150} />
+          </UILink>
+        </div>
+
+        <div className="justify-center hidden md:flex">
+          <Input
+            classNames={{
+              inputWrapper: 'w-full',
+            }}
+            placeholder={t('search')}
+            size="lg"
+            startContent={<MagnifyingGlassIcon className="w-4 h-4" />}
+            type="search"
+          />
+        </div>
+
+        <div className="flex justify-end items-center">
+          <div className="hidden md:block min-w-[132px]">
+            <User
+              avatarProps={{
+                fallback: <UserIcon className="w-6 h-6" />,
+                classNames: {
+                  base: 'bg-transparent',
+                },
+              }}
+              description={
+                <UILink href={pathnames.account.path} size="sm">
+                  <span className="font-medium">Zaloguj się</span>
+                </UILink>
+              }
+              name="Panel klienta"
+            />
+          </div>
+
+          <Button
+            isIconOnly
+            aria-label="shopping cart"
+            as={UILink}
+            className="md:hidden"
+            href={pathnames.account.path}
+            size="lg"
+            variant="light"
+          >
+            <MagnifyingGlassIcon className="w-6 h-6" />
+          </Button>
+          <Button
+            isIconOnly
+            aria-label="shopping cart"
+            as={UILink}
+            className="md:hidden"
+            href={pathnames.account.path}
+            size="lg"
+            variant="light"
+          >
+            <UserIcon className="w-6 h-6" />
+          </Button>
+
+          <div className="h-9 px-0 md:px-4">
+            <Divider orientation="vertical" />
+          </div>
+
+          <ThemeSwitcher />
+
+          <Button
+            isIconOnly
+            aria-label="shopping cart"
+            as={UILink}
+            href={pathnames.favorites.path}
+            size="lg"
+            variant="light"
+          >
+            <HeartIcon className="w-6 h-6" />
+          </Button>
+
+          <Button
+            isIconOnly
+            aria-label="shopping cart"
+            size="lg"
+            variant="light"
+          >
+            <ShoppingCartIcon className="w-6 h-6" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};

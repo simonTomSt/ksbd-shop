@@ -1,3 +1,4 @@
+'use client';
 import { Url } from 'url';
 
 import { LinkProps, useLink } from '@heroui/link';

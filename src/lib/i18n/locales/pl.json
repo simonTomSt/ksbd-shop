@@ -1,14 +1,16 @@
 {
   "header": {
     "search": "Szukaj produktów",
-    "account": "Twoje konto",
+    "signIn": "Zaloguj się",
+    "account": "Panel klienta",
     "navLinks": {
       "home": "Strona główna",
       "shop": "Sklep",
       "ksbd": "Produkt KSBD",
       "about": "O nas",
       "contact": "Kontakt",
-      "favorites": "Ulubione"
+      "favorites": "Ulubione",
+      "account": "Panel klienta"
     }
   }
 }
