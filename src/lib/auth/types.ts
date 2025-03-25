@@ -3,8 +3,3 @@ export type CurrentUser = {
   email: string;
   firstName: string;
 };
-
-export type AuthResponse = {
-  user: CurrentUser;
-  token: string;
-};

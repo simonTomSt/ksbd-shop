@@ -5,10 +5,12 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import { api } from '../api';
+import { env } from '../config/env';
 import { Customer } from '../prestaShop/types';
 
 import { clearAuthToken, getAuthToken, setAuthToken } from './cookies';
 import { loginSchema } from './schema';
+import { CurrentUser } from './types';
 
 export const login = async (email: string, password: string) => {
   const validationResult = loginSchema.safeParse({ email, password });
@@ -29,9 +31,13 @@ export const login = async (email: string, password: string) => {
 
     if (isValid) {
       // Generate JWT token
-      const token = jwt.sign({ id: user.id }, 'your_secret_key', {
-        expiresIn: '1h',
-      });
+      const token = jwt.sign(
+        { id: user.id, email: user.email, firstName: user.firstName },
+        env.JWT_SECRET,
+        {
+          expiresIn: '1h',
+        },
+      );
 
       await setAuthToken(token);
 
@@ -52,14 +58,14 @@ export const logout = async () => {
   await clearAuthToken();
 };
 
-export const getCurrentUser = async () => {
+export const getCurrentUser = async (): Promise<CurrentUser | null> => {
   const token = await getAuthToken();
 
   if (!token) {
     return null;
   }
 
-  const decoded = jwt.verify(token, 'your_secret_key');
+  const decoded = jwt.verify(token, env.JWT_SECRET) as CurrentUser;
 
   return decoded;
 };

@@ -1,7 +1,14 @@
 {
-  "auth": {
-    "signIn": {
-      "title": "Zaloguj się"
+  "header": {
+    "search": "Szukaj produktów",
+    "account": "Twoje konto",
+    "navLinks": {
+      "home": "Strona główna",
+      "shop": "Sklep",
+      "ksbd": "Produkt KSBD",
+      "about": "O nas",
+      "contact": "Kontakt",
+      "favorites": "Ulubione"
     }
   }
 }
