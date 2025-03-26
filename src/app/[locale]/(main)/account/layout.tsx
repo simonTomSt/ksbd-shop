@@ -4,8 +4,8 @@ export default async function AccountPageLayout({
   dashboard,
   auth,
 }: {
-  dashboard?: React.ReactNode;
-  auth?: React.ReactNode;
+  dashboard: React.ReactNode;
+  auth: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
 

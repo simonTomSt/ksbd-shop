@@ -1,3 +1,10 @@
+'use client';
+import { Button } from '@heroui/button';
+
 export default function ShopPage() {
-  return <div>Shop</div>;
+  return (
+    <Button color="primary" onPress={() => {}}>
+      Złóż zamówienie
+    </Button>
+  );
 }

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { redirect } from 'next/navigation';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { routing } from '@/lib/i18n/routing';
 import { fontSans } from '@/lib/styles/fonts';
@@ -50,14 +51,16 @@ export default async function AppLayout({
           fontSans.variable,
         )}
       >
-        <NextIntlClientProvider locale={locale}>
-          <UIProvider
-            locale={`${locale}-${locale.toUpperCase()}`}
-            themeProps={{ attribute: 'class', defaultTheme: 'light' }}
-          >
-            {children}
-          </UIProvider>
-        </NextIntlClientProvider>
+        <NuqsAdapter>
+          <NextIntlClientProvider locale={locale}>
+            <UIProvider
+              locale={`${locale}-${locale.toUpperCase()}`}
+              themeProps={{ attribute: 'class', defaultTheme: 'light' }}
+            >
+              {children}
+            </UIProvider>
+          </NextIntlClientProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

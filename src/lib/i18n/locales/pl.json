@@ -12,5 +12,15 @@
       "favorites": "Ulubione",
       "account": "Panel klienta"
     }
+  },
+  "cart": {
+    "checkout": "Złóż zamówienie",
+    "drawerTitle": "Twój koszyk",
+    "goToCartPage": "Przejdź do koszyka",
+    "emptyCart": "Twój koszyk jest pusty",
+    "item": {
+      "quantity": "Ilość",
+      "remove": "Usuń"
+    }
   }
 }

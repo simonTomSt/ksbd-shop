@@ -1,7 +1,6 @@
 import {
   HeartIcon,
   MagnifyingGlassIcon,
-  ShoppingCartIcon,
   UserIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@heroui/button';
@@ -11,6 +10,7 @@ import { User } from '@heroui/user';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
+import { CartButton } from './CartButton';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 import { pathnames } from '@/lib/config/pathnames';
@@ -98,14 +98,7 @@ export const TopBar = () => {
             <HeartIcon className="w-6 h-6" />
           </Button>
 
-          <Button
-            isIconOnly
-            aria-label="shopping cart"
-            size="lg"
-            variant="light"
-          >
-            <ShoppingCartIcon className="w-6 h-6" />
-          </Button>
+          <CartButton size="lg" />
         </div>
       </div>
     </div>

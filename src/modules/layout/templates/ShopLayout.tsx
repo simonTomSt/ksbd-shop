@@ -1,3 +1,4 @@
+import { CartDrawer } from '../components/cart-drawer/CartDrawer';
 import { Header } from '../components/Header';
 
 export const ShopLayout = ({ children }: { children: React.ReactNode }) => {
@@ -7,6 +8,7 @@ export const ShopLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="container mx-auto max-w-7xl pt-10 sm:pt-16 px-4 sm:px-6 flex-grow">
         {children}
       </main>
+      <CartDrawer />
     </div>
   );
 };

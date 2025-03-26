@@ -21,13 +21,22 @@ const config = {
       themes: {
         light: {
           colors: {
-            primary: '#49A078',
-            secondary: '#010101',
+            primary: {
+              DEFAULT: '#49A078',
+            },
+            secondary: {
+              DEFAULT: '#1b6b76',
+            },
           },
         },
         dark: {
           colors: {
-            primary: '#49A078',
+            primary: {
+              DEFAULT: '#49A078',
+            },
+            secondary: {
+              DEFAULT: '#1b6b76',
+            },
           },
         },
       },
