@@ -7,7 +7,7 @@ import { useCartDrawerOpened } from '@/lib/hooks/useCartDrawerOpened';
 import { UILink } from '@/modules/common/UILink';
 type CartButtonProps = ButtonProps;
 
-export const CartButton = (props: CartButtonProps) => {
+export const CartDrawerButton = (props: CartButtonProps) => {
   const [, setCartOpened] = useCartDrawerOpened();
 
   return (

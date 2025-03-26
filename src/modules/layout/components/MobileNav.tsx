@@ -11,10 +11,9 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 
+import { CartDrawerButton } from '../../cart/components/drawer/CartDrawerButton';
+import { SearchButton } from '../../search/components/SearchButton';
 import { getMobileNavLinks } from '../utils/getNavLinks';
-
-import { CartButton } from './CartButton';
-import { SearchButton } from './SearchButton';
 
 import { useIsPathActive } from '@/lib/hooks/useIsPathActive';
 import { UILink } from '@/modules/common/UILink';
@@ -56,7 +55,7 @@ export const MobileNav = () => {
 
         <div className="flex gap-1 mr-2">
           <SearchButton size="md" />
-          <CartButton size="md" />
+          <CartDrawerButton size="md" />
         </div>
 
         <NavbarMenuToggle

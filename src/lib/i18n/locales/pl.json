@@ -1,6 +1,5 @@
 {
   "header": {
-    "search": "Szukaj produktów",
     "signIn": "Zaloguj się",
     "account": "Panel klienta",
     "navLinks": {
@@ -11,6 +10,12 @@
       "contact": "Kontakt",
       "favorites": "Ulubione",
       "account": "Panel klienta"
+    }
+  },
+  "search": {
+    "inputPlaceholder": "Szukaj produktów",
+    "modal": {
+      "placeholder": "Wyszukaj produktów, które Cię interesują"
     }
   },
   "cart": {

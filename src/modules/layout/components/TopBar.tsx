@@ -1,3 +1,4 @@
+'use client';
 import {
   HeartIcon,
   MagnifyingGlassIcon,
@@ -5,19 +6,20 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@heroui/button';
 import { Divider } from '@heroui/divider';
-import { Input } from '@heroui/input';
 import { User } from '@heroui/user';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-import { CartButton } from './CartButton';
+import { SearchInput } from '../../search/components/SearchInput';
+
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 import { pathnames } from '@/lib/config/pathnames';
+import { useIsPathActive } from '@/lib/hooks/useIsPathActive';
+import { CartDrawerButton } from '@/modules/cart/components/drawer/CartDrawerButton';
 import { UILink } from '@/modules/common/UILink';
 
 export const TopBar = () => {
-  const t = useTranslations('header');
+  const checkIsPathActive = useIsPathActive();
 
   return (
     <div className="hidden sm:flex z-40 w-full h-auto items-center justify-center sticky top-0 inset-x-0 border-b border-divider backdrop-blur-lg backdrop-saturate-150 bg-background/70">
@@ -29,15 +31,7 @@ export const TopBar = () => {
         </div>
 
         <div className="justify-center hidden md:flex">
-          <Input
-            classNames={{
-              inputWrapper: 'w-full',
-            }}
-            placeholder={t('search')}
-            size="lg"
-            startContent={<MagnifyingGlassIcon className="w-4 h-4" />}
-            type="search"
-          />
+          <SearchInput />
         </div>
 
         <div className="flex justify-end items-center">
@@ -91,6 +85,11 @@ export const TopBar = () => {
             isIconOnly
             aria-label="shopping cart"
             as={UILink}
+            color={
+              checkIsPathActive(pathnames.favorites.path)
+                ? 'primary'
+                : 'default'
+            }
             href={pathnames.favorites.path}
             size="lg"
             variant="light"
@@ -98,7 +97,7 @@ export const TopBar = () => {
             <HeartIcon className="w-6 h-6" />
           </Button>
 
-          <CartButton size="lg" />
+          <CartDrawerButton size="lg" />
         </div>
       </div>
     </div>
