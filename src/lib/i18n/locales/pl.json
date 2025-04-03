@@ -1,0 +1,98 @@
+{
+  "header": {
+    "signIn": "Zaloguj się",
+    "account": "Panel klienta",
+    "navLinks": {
+      "home": "Strona główna",
+      "shop": "Sklep",
+      "ksbd": "Produkt KSBD",
+      "about": "O nas",
+      "contact": "Kontakt",
+      "favorites": "Ulubione",
+      "account": "Panel klienta"
+    }
+  },
+  "search": {
+    "inputPlaceholder": "Szukaj produktów",
+    "modal": {
+      "placeholder": "Wyszukaj produktów, które Cię interesują"
+    }
+  },
+  "cart": {
+    "checkout": "Złóż zamówienie",
+    "drawerTitle": "Twój koszyk",
+    "goToCartPage": "Przejdź do koszyka",
+    "emptyCart": "Twój koszyk jest pusty",
+    "item": {
+      "quantity": "Ilość",
+      "remove": "Usuń"
+    }
+  },
+  "auth": {
+    "signUp": {
+      "title": "Utwórz konto",
+      "submit": "Zarejestruj się",
+      "alreadyHaveAccount": "Masz już konto? <link>Zaloguj się</link>",
+      "email": {
+        "label": "Email",
+        "placeholder": "Podaj swój email",
+        "errors": {
+          "required": "Email jest wymagany",
+          "invalid": "Email jest nieprawidłowy"
+        }
+      },
+      "password": {
+        "label": "Hasło",
+        "placeholder": "Podaj swoje hasło",
+        "errors": {
+          "required": "Hasło jest wymagane",
+          "minlength": "Hasło musi mieć co najmniej 8 znaków",
+          "maxlength": "Hasło może mieć maksymalnie 20 znaków",
+          "invalid": "Hasło jest nieprawidłowe",
+          "uppercaseLetter": "Hasło musi zawierać co najmniej jedną wielką literę",
+          "lowercaseLetter": "Hasło musi zawierać co najmniej jedną małą literę",
+          "number": "Hasło musi zawierać co najmniej jedną cyfrę",
+          "special": "Hasło musi zawierać co najmniej jeden znak specjalny"
+        }
+      },
+      "firstName": {
+        "label": "Imię",
+        "placeholder": "Podaj swoje imię",
+        "errors": {
+          "required": "Imię jest wymagane",
+          "minlength": "Imię musi mieć co najmniej 3 znaki",
+          "invalid": "Imię jest nieprawidłowe"
+        }
+      },
+      "lastName": {
+        "label": "Nazwisko",
+        "placeholder": "Podaj swoje nazwisko",
+        "errors": {
+          "required": "Nazwisko jest wymagane",
+          "minlength": "Nazwisko musi mieć co najmniej 3 znaki",
+          "invalid": "Nazwisko jest nieprawidłowe"
+        }
+      },
+      "privacyPolicyAgreement": {
+        "label": "Akceptuję <link>regulamin</link> sklepu*",
+        "errors": {
+          "required": "Musisz zaakceptować regulamin sklepu"
+        }
+      },
+      "newsletter": {
+        "label": "Chcę otrzymać informacje o nowych produktach, usługach i ofertach"
+      },
+      "optIn": {
+        "label": "Chcę otrzymywać oferty promocyjne od partnerów sklepu."
+      }
+    }
+  },
+  "signIn": {
+    "title": "Zaloguj się",
+    "email": "Email",
+    "password": "Hasło",
+    "submit": "Zaloguj się",
+    "noAccount": "Nie masz jeszcze konta? <link>Zarejestruj się</link>",
+    "forgotPassword": "Zapomniałeś hasła? <link>Zresetuj hasło</link>"
+  }
+}
