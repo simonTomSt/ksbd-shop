@@ -10,11 +10,8 @@ import { pl } from '@payloadcms/translations/languages/pl'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
-import { Categories } from './collections/Categories'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { Media } from './collections/Media'
-import { ProductAttributes } from './collections/ProductAttributes'
-import { Products } from './collections/Products'
-import { ProductVariants } from './collections/ProductVariants'
 import { Users } from './collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
@@ -39,7 +36,7 @@ const payloadConfig = buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Products, ProductAttributes, ProductVariants, Categories],
+  collections: [Users, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   db: postgresAdapter({
@@ -54,6 +51,23 @@ const payloadConfig = buildConfig({
       uploadsCollection: 'media',
       generateTitle: ({ doc }) => `${doc.title} | KSBD`,
       generateDescription: ({ doc }) => doc.excerpt,
+    }),
+    s3Storage({
+      collections: {
+        media: {
+          prefix: 'media',
+        },
+      },
+      bucket: process.env.S3_BUCKET!,
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+        },
+        region: process.env.S3_REGION!,
+        endpoint: process.env.S3_ENDPOINT!,
+        forcePathStyle: true,
+      },
     }),
   ],
 })

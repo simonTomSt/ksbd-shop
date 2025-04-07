@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    customers: CustomerAuthOperations;
   };
   blocks: {};
   collections: {
@@ -73,6 +74,16 @@ export interface Config {
     'product-attributes': ProductAttribute;
     'product-variants': ProductVariant;
     categories: Category;
+    customers: Customer;
+    'customer-billing-info': CustomerBillingInfo;
+    'customer-addresses': CustomerAddress;
+    countries: Country;
+    taxes: Tax;
+    orders: Order;
+    'shipment-methods': ShipmentMethod;
+    'payment-methods': PaymentMethod;
+    discounts: Discount;
+    'customer-groups': CustomerGroup;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +96,16 @@ export interface Config {
     'product-attributes': ProductAttributesSelect<false> | ProductAttributesSelect<true>;
     'product-variants': ProductVariantsSelect<false> | ProductVariantsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
+    'customer-billing-info': CustomerBillingInfoSelect<false> | CustomerBillingInfoSelect<true>;
+    'customer-addresses': CustomerAddressesSelect<false> | CustomerAddressesSelect<true>;
+    countries: CountriesSelect<false> | CountriesSelect<true>;
+    taxes: TaxesSelect<false> | TaxesSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
+    'shipment-methods': ShipmentMethodsSelect<false> | ShipmentMethodsSelect<true>;
+    'payment-methods': PaymentMethodsSelect<false> | PaymentMethodsSelect<true>;
+    discounts: DiscountsSelect<false> | DiscountsSelect<true>;
+    'customer-groups': CustomerGroupsSelect<false> | CustomerGroupsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -95,15 +116,37 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: 'pl' | 'en';
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Customer & {
+        collection: 'customers';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface CustomerAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -146,6 +189,7 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -165,7 +209,7 @@ export interface Media {
 export interface Product {
   id: number;
   title: string;
-  slug?: string | null;
+  slug: string;
   description?: {
     root: {
       type: string;
@@ -181,6 +225,7 @@ export interface Product {
     };
     [k: string]: unknown;
   } | null;
+  shortDescription?: string | null;
   price: number;
   compareAtPrice?: number | null;
   categories?: (number | Category)[] | null;
@@ -191,6 +236,7 @@ export interface Product {
   sku?: string | null;
   isPublished?: boolean | null;
   isFeatured?: boolean | null;
+  relatedProducts?: (number | Product)[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -215,6 +261,13 @@ export interface Category {
   image?: (number | null) | Media;
   isFeatured?: boolean | null;
   isActive?: boolean | null;
+  displayOrder?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    keywords?: string | null;
+    image?: (number | null) | Media;
+  };
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -268,6 +321,286 @@ export interface ProductVariant {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: number;
+  password: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  phone?: string | null;
+  customerGroup?: (number | null) | CustomerGroup;
+  billingInfo?: (number | null) | CustomerBillingInfo;
+  addresses?: (number | CustomerAddress)[] | null;
+  canBuyAsGuest?: boolean | null;
+  discounts?: (number | Discount)[] | null;
+  wishlist?: (number | Product)[] | null;
+  marketingConsent?: boolean | null;
+  lastLogin?: string | null;
+  /**
+   * Internal notes about the customer
+   */
+  notes?: string | null;
+  isActive?: boolean | null;
+  createdAt: string;
+  updatedAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-groups".
+ */
+export interface CustomerGroup {
+  id: number;
+  name: string;
+  description?: string | null;
+  discounts?: (number | Discount)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "discounts".
+ */
+export interface Discount {
+  id: number;
+  name: string;
+  type: 'percent' | 'fixed';
+  amount: number;
+  startsAt?: string | null;
+  endsAt?: string | null;
+  products?: (number | Product)[] | null;
+  active?: boolean | null;
+  priority?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-billing-info".
+ */
+export interface CustomerBillingInfo {
+  id: number;
+  firstName: string;
+  lastName: string;
+  street: string;
+  buildingNumber: string;
+  flatNumber?: string | null;
+  city: string;
+  postalCode: string;
+  country: number | Country;
+  phone: string;
+  taxId?: string | null;
+  companyName?: string | null;
+  customer: number | Customer;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "countries".
+ */
+export interface Country {
+  id: number;
+  name: string;
+  countryId: string;
+  tax?: (number | null) | Tax;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "taxes".
+ */
+export interface Tax {
+  id: number;
+  name: string;
+  rate: number;
+  country?: string | null;
+  region?: string | null;
+  active?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-addresses".
+ */
+export interface CustomerAddress {
+  id: number;
+  name: string;
+  isDefault?: boolean | null;
+  firstName: string;
+  lastName: string;
+  street: string;
+  buildingNumber: string;
+  flatNumber?: string | null;
+  city: string;
+  postalCode: string;
+  country: number | Country;
+  phone: string;
+  customer: number | Customer;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  orderNumber: string;
+  customer?: (number | null) | Customer;
+  guestInfo?: {
+    email?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    phone?: string | null;
+  };
+  items?:
+    | {
+        product?: (number | null) | Product;
+        variant?: (number | null) | ProductVariant;
+        quantity?: number | null;
+        price?: number | null;
+        discountedPrice?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  billingAddress?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  shippingAddress?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  shipmentMethod?: (number | null) | ShipmentMethod;
+  trackingNumber?: string | null;
+  trackingUrl?: string | null;
+  paymentMethod?: ('credit_card' | 'paypal' | 'bank_transfer' | 'cash_on_delivery') | null;
+  paymentStatus?: ('unpaid' | 'paid' | 'partially_refunded' | 'refunded' | 'failed') | null;
+  orderStatus?: ('pending' | 'processing' | 'on_hold' | 'shipped' | 'delivered' | 'cancelled' | 'refunded') | null;
+  subtotal?: number | null;
+  shippingCost?: number | null;
+  discount?: number | null;
+  total?: number | null;
+  tax?: number | null;
+  currency?: string | null;
+  discountsApplied?: (number | Discount)[] | null;
+  notes?: string | null;
+  customerNotes?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  statusHistory?:
+    | {
+        status?: ('pending' | 'processing' | 'on_hold' | 'shipped' | 'delivered' | 'cancelled' | 'refunded') | null;
+        timestamp?: string | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipment-methods".
+ */
+export interface ShipmentMethod {
+  id: number;
+  name: string;
+  price: number;
+  minOrderTotal?: number | null;
+  maxOrderTotal?: number | null;
+  availableCountries?:
+    | {
+        country?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  active?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payment-methods".
+ */
+export interface PaymentMethod {
+  id: number;
+  name: string;
+  /**
+   * Unique identifier for this payment method (e.g., "online-transfer", "in-shop")
+   */
+  code: string;
+  /**
+   * Explain how this payment method works to customers
+   */
+  description?: string | null;
+  /**
+   * Instructions shown to customers when they select this payment method
+   */
+  instructions?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Enable or disable this payment method
+   */
+  isActive?: boolean | null;
+  /**
+   * Controls the order in which payment methods are displayed (lower numbers appear first)
+   */
+  displayOrder?: number | null;
+  /**
+   * Payment method specific settings
+   */
+  additionalSettings?: {
+    /**
+     * If enabled, orders with this payment method will require manual confirmation
+     */
+    requiresConfirmation?: boolean | null;
+    /**
+     * Bank account details for online transfers
+     */
+    accountDetails?: {
+      bankName?: string | null;
+      accountNumber?: string | null;
+      accountName?: string | null;
+      swiftCode?: string | null;
+    };
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -296,12 +629,57 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: number | Customer;
+      } | null)
+    | ({
+        relationTo: 'customer-billing-info';
+        value: number | CustomerBillingInfo;
+      } | null)
+    | ({
+        relationTo: 'customer-addresses';
+        value: number | CustomerAddress;
+      } | null)
+    | ({
+        relationTo: 'countries';
+        value: number | Country;
+      } | null)
+    | ({
+        relationTo: 'taxes';
+        value: number | Tax;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: number | Order;
+      } | null)
+    | ({
+        relationTo: 'shipment-methods';
+        value: number | ShipmentMethod;
+      } | null)
+    | ({
+        relationTo: 'payment-methods';
+        value: number | PaymentMethod;
+      } | null)
+    | ({
+        relationTo: 'discounts';
+        value: number | Discount;
+      } | null)
+    | ({
+        relationTo: 'customer-groups';
+        value: number | CustomerGroup;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'customers';
+        value: number | Customer;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -311,10 +689,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'customers';
+        value: number | Customer;
+      };
   key?: string | null;
   value?:
     | {
@@ -361,6 +744,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -381,6 +765,7 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   description?: T;
+  shortDescription?: T;
   price?: T;
   compareAtPrice?: T;
   categories?: T;
@@ -391,6 +776,7 @@ export interface ProductsSelect<T extends boolean = true> {
   sku?: T;
   isPublished?: T;
   isFeatured?: T;
+  relatedProducts?: T;
   meta?:
     | T
     | {
@@ -443,6 +829,15 @@ export interface CategoriesSelect<T extends boolean = true> {
   image?: T;
   isFeatured?: T;
   isActive?: T;
+  displayOrder?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+        image?: T;
+      };
   meta?:
     | T
     | {
@@ -450,6 +845,225 @@ export interface CategoriesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  password?: T;
+  firstName?: T;
+  lastName?: T;
+  phone?: T;
+  customerGroup?: T;
+  billingInfo?: T;
+  addresses?: T;
+  canBuyAsGuest?: T;
+  discounts?: T;
+  wishlist?: T;
+  marketingConsent?: T;
+  lastLogin?: T;
+  notes?: T;
+  isActive?: T;
+  createdAt?: T;
+  updatedAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-billing-info_select".
+ */
+export interface CustomerBillingInfoSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  street?: T;
+  buildingNumber?: T;
+  flatNumber?: T;
+  city?: T;
+  postalCode?: T;
+  country?: T;
+  phone?: T;
+  taxId?: T;
+  companyName?: T;
+  customer?: T;
+  createdAt?: T;
+  updatedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-addresses_select".
+ */
+export interface CustomerAddressesSelect<T extends boolean = true> {
+  name?: T;
+  isDefault?: T;
+  firstName?: T;
+  lastName?: T;
+  street?: T;
+  buildingNumber?: T;
+  flatNumber?: T;
+  city?: T;
+  postalCode?: T;
+  country?: T;
+  phone?: T;
+  customer?: T;
+  createdAt?: T;
+  updatedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "countries_select".
+ */
+export interface CountriesSelect<T extends boolean = true> {
+  name?: T;
+  countryId?: T;
+  tax?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "taxes_select".
+ */
+export interface TaxesSelect<T extends boolean = true> {
+  name?: T;
+  rate?: T;
+  country?: T;
+  region?: T;
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  orderNumber?: T;
+  customer?: T;
+  guestInfo?:
+    | T
+    | {
+        email?: T;
+        firstName?: T;
+        lastName?: T;
+        phone?: T;
+      };
+  items?:
+    | T
+    | {
+        product?: T;
+        variant?: T;
+        quantity?: T;
+        price?: T;
+        discountedPrice?: T;
+        id?: T;
+      };
+  billingAddress?: T;
+  shippingAddress?: T;
+  shipmentMethod?: T;
+  trackingNumber?: T;
+  trackingUrl?: T;
+  paymentMethod?: T;
+  paymentStatus?: T;
+  orderStatus?: T;
+  subtotal?: T;
+  shippingCost?: T;
+  discount?: T;
+  total?: T;
+  tax?: T;
+  currency?: T;
+  discountsApplied?: T;
+  notes?: T;
+  customerNotes?: T;
+  createdAt?: T;
+  updatedAt?: T;
+  statusHistory?:
+    | T
+    | {
+        status?: T;
+        timestamp?: T;
+        note?: T;
+        id?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipment-methods_select".
+ */
+export interface ShipmentMethodsSelect<T extends boolean = true> {
+  name?: T;
+  price?: T;
+  minOrderTotal?: T;
+  maxOrderTotal?: T;
+  availableCountries?:
+    | T
+    | {
+        country?: T;
+        id?: T;
+      };
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payment-methods_select".
+ */
+export interface PaymentMethodsSelect<T extends boolean = true> {
+  name?: T;
+  code?: T;
+  description?: T;
+  instructions?: T;
+  isActive?: T;
+  displayOrder?: T;
+  additionalSettings?:
+    | T
+    | {
+        requiresConfirmation?: T;
+        accountDetails?:
+          | T
+          | {
+              bankName?: T;
+              accountNumber?: T;
+              accountName?: T;
+              swiftCode?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "discounts_select".
+ */
+export interface DiscountsSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  amount?: T;
+  startsAt?: T;
+  endsAt?: T;
+  products?: T;
+  active?: T;
+  priority?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-groups_select".
+ */
+export interface CustomerGroupsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  discounts?: T;
   updatedAt?: T;
   createdAt?: T;
 }
