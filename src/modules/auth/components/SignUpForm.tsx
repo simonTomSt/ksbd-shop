@@ -12,26 +12,23 @@ import { useForm } from 'react-hook-form';
 import { SignUpFormValues, signUpSchema } from '../schema/signUpSchema';
 
 import { pathnames } from '@/lib/config/pathnames';
+import { useRouter } from '@/lib/i18n/navigation';
 import { PasswordInput } from '@/modules/common/PasswordInput';
 import { UILink } from '@/modules/common/UILink';
 import { addToast } from '@heroui/toast';
-import { parseAsBoolean, useQueryState } from 'nuqs';
 import { signUp } from '../api/signUp';
 
 const defaultValues = {
   email: '',
   password: '',
-  confirmPassword: '',
   firstName: '',
   lastName: '',
   newsletter: false,
-  optIn: false,
   privacyPolicyAgreement: false,
 };
 
 export const SignUpForm = () => {
-  const [, setSignUpSuccess] = useQueryState('signUpSuccess', parseAsBoolean);
-
+  const router = useRouter();
   const t = useTranslations('auth.signUp');
   const {
     register,
@@ -48,9 +45,10 @@ export const SignUpForm = () => {
         emailAddress: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
+        password: data.password,
       }),
-    onSuccess: (data) => {
-      setSignUpSuccess(true);
+    onSuccess: () => {
+      router.push(`${pathnames.signUp.path}?signUpSuccess=true`);
     },
     onError: (error) => {
       addToast({

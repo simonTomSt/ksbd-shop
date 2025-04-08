@@ -1,5 +1,3 @@
-const AuthPage = () => {
-  return <div />;
-};
+import { SignInTemplate } from '@/modules/auth/templates/SignInTemplate';
 
-export default AuthPage;
+export default SignInTemplate;

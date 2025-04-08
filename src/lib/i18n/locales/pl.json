@@ -30,13 +30,13 @@
   },
   "auth": {
     "signUp": {
+      "title": "Utwórz konto",
+      "submit": "Zarejestruj się",
+      "alreadyHaveAccount": "Masz już konto? <link>Zaloguj się</link>",
       "success": {
         "title": "Sprawdź swoją skrzynkę email",
         "description": "Wysłaliśmy link do aktywacji konta na podany adres email"
       },
-      "title": "Utwórz konto",
-      "submit": "Zarejestruj się",
-      "alreadyHaveAccount": "Masz już konto? <link>Zaloguj się</link>",
       "email": {
         "label": "Email",
         "placeholder": "Podaj swój email",
@@ -89,21 +89,54 @@
       "optIn": {
         "label": "Chcę otrzymywać oferty promocyjne od partnerów sklepu."
       }
+    },
+    "signIn": {
+      "title": "Zaloguj się",
+      "submit": "Zaloguj się",
+      "noAccount": "Nie masz jeszcze konta? <link>Zarejestruj się</link>",
+      "forgotPassword": "Zapomniałeś hasła? <link>Zresetuj hasło</link>",
+      "email": {
+        "label": "Email",
+        "placeholder": "Podaj swój email",
+        "errors": {
+          "required": "Email jest wymagany",
+          "invalid": "Email jest nieprawidłowy"
+        }
+      },
+      "password": {
+        "label": "Hasło",
+        "placeholder": "Podaj swoje hasło",
+        "errors": {
+          "required": "Hasło jest wymagane",
+          "minlength": "Hasło musi mieć co najmniej 8 znaków",
+          "maxlength": "Hasło może mieć maksymalnie 20 znaków",
+          "invalid": "Hasło jest nieprawidłowe",
+          "uppercaseLetter": "Hasło musi zawierać co najmniej jedną wielką literę",
+          "lowercaseLetter": "Hasło musi zawierać co najmniej jedną małą literę",
+          "number": "Hasło musi zawierać co najmniej jedną cyfrę",
+          "special": "Hasło musi zawierać co najmniej jeden znak specjalny"
+        }
+      }
+    },
+    "verifyAccount": {
+      "processing": "Trwa weryfikacja konta...",
+      "success": {
+        "title": "Konto zostało weryfikowane",
+        "description": "Możesz teraz zalogować się na swoje konto"
+      },
+      "error": {
+        "title": "Wystąpił błąd podczas weryfikacji konta",
+        "description": "Proszę spróbować ponownie"
+      }
     }
-  },
-  "signIn": {
-    "title": "Zaloguj się",
-    "email": "Email",
-    "password": "Hasło",
-    "submit": "Zaloguj się",
-    "noAccount": "Nie masz jeszcze konta? <link>Zarejestruj się</link>",
-    "forgotPassword": "Zapomniałeś hasła? <link>Zresetuj hasło</link>"
   },
   "errorCodes": {
     "MISSING_PASSWORD_ERROR": "Brak podanego hasła",
     "NATIVE_AUTH_STRATEGY_ERROR": "Błąd uwierzytelniania",
     "PASSWORD_VALIDATION_ERROR": "Nieprawidłowe dane logowania",
     "ERROR_RESULT": "Wystąpił błąd",
-    "UNKNOWN_ERROR": "Wystąpił nieznany błąd"
+    "UNKNOWN_ERROR": "Wystąpił nieznany błąd",
+    "INVALID_CREDENTIALS_ERROR": "Nieprawidłowe dane logowania",
+    "NOT_VERIFIED_ERROR": "Konto nie zostało zweryfikowane"
   }
 }

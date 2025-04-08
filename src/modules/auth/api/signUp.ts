@@ -10,13 +10,10 @@ import {
 import { shopClient } from '@/lib/shop-api/shopClient';
 
 export const signUp = async (input: RegisterCustomerInput) => {
-  //   const client = await makeShopClient();
   const response = await shopClient.mutation({
     registerCustomerAccount: {
       __args: {
-        input: {
-          emailAddress: '',
-        },
+        input,
       },
       on_Success: {
         __typename: true,
@@ -59,5 +56,5 @@ export const signUp = async (input: RegisterCustomerInput) => {
     throw new Error(response.registerCustomerAccount.errorCode);
   }
 
-  throw new Error('Unknown error');
+  throw new Error('UNKNOWN_ERROR');
 };
