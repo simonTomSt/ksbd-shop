@@ -27,7 +27,7 @@ const defaultValues = {
   privacyPolicyAgreement: false,
 };
 
-export const SignUpForm = () => {
+export const SignInForm = () => {
   const t = useTranslations('auth.signUp');
   const {
     register,
@@ -47,8 +47,6 @@ export const SignUpForm = () => {
     console.log('data', data);
     signUpMutation.mutate(data);
   };
-
-  console.log('errors', errors);
 
   return (
     <Form
@@ -106,11 +104,7 @@ export const SignUpForm = () => {
           <label className="text-xs" htmlFor="privacyPolicyAgreement">
             {t.rich('privacyPolicyAgreement.label', {
               link: (chunks) => (
-                <UILink
-                  href={pathnames.privacyPolicy.path}
-                  size="sm"
-                  underline="always"
-                >
+                <UILink href={pathnames.privacyPolicy.path} size="sm" underline="always">
                   {chunks}
                 </UILink>
               ),
@@ -133,19 +127,11 @@ export const SignUpForm = () => {
           </span>
         </PrivacyPolicyCheckbox> */}
 
-        <Checkbox
-          isRequired
-          isInvalid={!!errors.newsletter?.message}
-          {...register('newsletter')}
-        >
+        <Checkbox isRequired isInvalid={!!errors.newsletter?.message} {...register('newsletter')}>
           <span className="text-xs">{t('newsletter.label')}</span>
         </Checkbox>
 
-        <Checkbox
-          isRequired
-          isInvalid={!!errors.optIn?.message}
-          {...register('optIn')}
-        >
+        <Checkbox isRequired isInvalid={!!errors.optIn?.message} {...register('optIn')}>
           <span className="text-xs">{t('optIn.label')}</span>
         </Checkbox>
 

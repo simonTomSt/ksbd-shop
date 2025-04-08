@@ -59,4 +59,19 @@ export const pathnames = {
     pl: '/polityka-prywatności',
     en: '/privacy-policy',
   },
+  verify: {
+    path: '/verify',
+    pl: '/weryfikacja',
+    en: '/verify',
+  },
+  verifyEmailChange: {
+    path: '/verify-email-change',
+    pl: '/weryfikacja-zmiany-email',
+    en: '/verify-email-change',
+  },
+  passwordReset: {
+    path: '/password-reset',
+    pl: '/resetowanie-hasła',
+    en: '/password-reset',
+  },
 };

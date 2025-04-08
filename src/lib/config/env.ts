@@ -5,6 +5,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   DATABASE_URI: z.string(),
   PAYLOAD_SECRET: z.string(),
+  VENDURE_API_URL: z.string().url(),
 })
 
 // Validate the process.env

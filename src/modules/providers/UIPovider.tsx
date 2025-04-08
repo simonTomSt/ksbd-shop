@@ -1,11 +1,8 @@
 'use client';
-import { HeroUIProvider } from '@heroui/system';
-import {
-  ThemeProvider as NextThemesProvider,
-  ThemeProviderProps,
-} from 'next-themes';
-
 import { useRouter } from '@/lib/i18n/navigation';
+import { HeroUIProvider } from '@heroui/system';
+import { ToastProvider } from '@heroui/toast';
+import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes';
 
 type Props = {
   children: React.ReactNode;
@@ -15,9 +12,7 @@ type Props = {
 
 declare module '@react-types/shared' {
   interface RouterConfig {
-    routerOptions: NonNullable<
-      Parameters<ReturnType<typeof useRouter>['push']>[1]
-    >;
+    routerOptions: NonNullable<Parameters<ReturnType<typeof useRouter>['push']>[1]>;
   }
 }
 
@@ -26,7 +21,11 @@ export const UIProvider = ({ children, themeProps, locale }: Props) => {
 
   return (
     <HeroUIProvider locale={locale} navigate={router.push}>
-      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      <NextThemesProvider {...themeProps}>
+        <ToastProvider placement="top-right" />
+
+        {children}
+      </NextThemesProvider>
     </HeroUIProvider>
   );
 };

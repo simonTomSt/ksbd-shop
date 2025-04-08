@@ -11,10 +11,12 @@ import { useForm } from 'react-hook-form';
 
 import { SignUpFormValues, signUpSchema } from '../schema/signUpSchema';
 
-import { signUp } from '@/lib/auth';
 import { pathnames } from '@/lib/config/pathnames';
 import { PasswordInput } from '@/modules/common/PasswordInput';
 import { UILink } from '@/modules/common/UILink';
+import { addToast } from '@heroui/toast';
+import { parseAsBoolean, useQueryState } from 'nuqs';
+import { signUp } from '../api/signUp';
 
 const defaultValues = {
   email: '',
@@ -28,6 +30,8 @@ const defaultValues = {
 };
 
 export const SignUpForm = () => {
+  const [, setSignUpSuccess] = useQueryState('signUpSuccess', parseAsBoolean);
+
   const t = useTranslations('auth.signUp');
   const {
     register,
@@ -37,18 +41,29 @@ export const SignUpForm = () => {
   } = useForm<SignUpFormValues>({
     defaultValues,
     resolver: zodResolver(signUpSchema(t)),
-    mode: 'onChange',
   });
   const signUpMutation = useMutation({
-    mutationFn: (data: SignUpFormValues) => signUp(data),
+    mutationFn: (data: SignUpFormValues) =>
+      signUp({
+        emailAddress: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      }),
+    onSuccess: (data) => {
+      setSignUpSuccess(true);
+    },
+    onError: (error) => {
+      addToast({
+        title: 'Title',
+        description: error.message,
+        color: 'danger',
+      });
+    },
   });
 
   const onSubmit = (data: SignUpFormValues) => {
-    console.log('data', data);
     signUpMutation.mutate(data);
   };
-
-  console.log('errors', errors);
 
   return (
     <Form
@@ -106,11 +121,7 @@ export const SignUpForm = () => {
           <label className="text-xs" htmlFor="privacyPolicyAgreement">
             {t.rich('privacyPolicyAgreement.label', {
               link: (chunks) => (
-                <UILink
-                  href={pathnames.privacyPolicy.path}
-                  size="sm"
-                  underline="always"
-                >
+                <UILink href={pathnames.privacyPolicy.path} size="sm" underline="always">
                   {chunks}
                 </UILink>
               ),
@@ -133,26 +144,13 @@ export const SignUpForm = () => {
           </span>
         </PrivacyPolicyCheckbox> */}
 
-        <Checkbox
-          isRequired
-          isInvalid={!!errors.newsletter?.message}
-          {...register('newsletter')}
-        >
+        <Checkbox isRequired isInvalid={!!errors.newsletter?.message} {...register('newsletter')}>
           <span className="text-xs">{t('newsletter.label')}</span>
-        </Checkbox>
-
-        <Checkbox
-          isRequired
-          isInvalid={!!errors.optIn?.message}
-          {...register('optIn')}
-        >
-          <span className="text-xs">{t('optIn.label')}</span>
         </Checkbox>
 
         <Button
           className="w-full"
-          color={isValid ? 'primary' : 'default'}
-          disabled={!isValid}
+          color="primary"
           isLoading={signUpMutation.isPending}
           type="submit"
         >

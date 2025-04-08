@@ -30,6 +30,10 @@
   },
   "auth": {
     "signUp": {
+      "success": {
+        "title": "Sprawdź swoją skrzynkę email",
+        "description": "Wysłaliśmy link do aktywacji konta na podany adres email"
+      },
       "title": "Utwórz konto",
       "submit": "Zarejestruj się",
       "alreadyHaveAccount": "Masz już konto? <link>Zaloguj się</link>",
@@ -94,5 +98,12 @@
     "submit": "Zaloguj się",
     "noAccount": "Nie masz jeszcze konta? <link>Zarejestruj się</link>",
     "forgotPassword": "Zapomniałeś hasła? <link>Zresetuj hasło</link>"
+  },
+  "errorCodes": {
+    "MISSING_PASSWORD_ERROR": "Brak podanego hasła",
+    "NATIVE_AUTH_STRATEGY_ERROR": "Błąd uwierzytelniania",
+    "PASSWORD_VALIDATION_ERROR": "Nieprawidłowe dane logowania",
+    "ERROR_RESULT": "Wystąpił błąd",
+    "UNKNOWN_ERROR": "Wystąpił nieznany błąd"
   }
 }

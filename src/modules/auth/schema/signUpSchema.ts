@@ -4,9 +4,7 @@ import { TFunction } from '@/lib/i18n/types';
 
 export const signUpSchema = (t: TFunction<'auth.signUp'>) =>
   z.object({
-    email: z
-      .string({ message: t('email.errors.required') })
-      .email(t('email.errors.invalid')),
+    email: z.string({ message: t('email.errors.required') }).email(t('email.errors.invalid')),
     password: z
       .string({ message: t('password.errors.required') })
       .min(8, t('password.errors.minlength'))
@@ -21,7 +19,6 @@ export const signUpSchema = (t: TFunction<'auth.signUp'>) =>
       .string({ message: t('lastName.errors.required') })
       .min(3, t('lastName.errors.minlength')),
     newsletter: z.boolean().optional(),
-    optIn: z.boolean().optional(),
     privacyPolicyAgreement: z.boolean().refine((val) => val === true, {
       message: t('privacyPolicyAgreement.errors.required'),
     }),
