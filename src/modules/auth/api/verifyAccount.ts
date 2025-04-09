@@ -1,5 +1,4 @@
 'use server';
-import { setAuthTokenCookie } from '@/lib/shop-api/auth';
 import {
   isCurrentUser,
   isNativeAuthStrategyError,
@@ -44,7 +43,6 @@ export const verifyAccount = async (token: string) => {
   });
 
   if (isCurrentUser(response.verifyCustomerAccount)) {
-    setAuthTokenCookie(response.verifyCustomerAccount.channels[0].token);
     return response.verifyCustomerAccount;
   }
 

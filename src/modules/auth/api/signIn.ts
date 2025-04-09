@@ -1,4 +1,5 @@
 'use server';
+
 import {
   isCurrentUser,
   isInvalidCredentialsError,

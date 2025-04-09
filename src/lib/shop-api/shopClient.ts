@@ -1,50 +1,28 @@
-'server-only';
-import { env } from '../config/env';
-import { setAuthTokenCookie } from './auth';
-import { getAuthTokenCookie } from './auth/getAuthTokenCookie';
+import { getToken } from './actionts';
+import { setAuthTokenCookie } from './auth/setAuthTokenCookie';
+
+import { env } from '@/lib/config/env';
 import { createClient } from './graphql';
 
-export const makeShopClient = async () => {
-  const authToken = await getAuthTokenCookie();
-
-  return createClient({
-    url: env.VENDURE_API_URL,
-    headers: {
-      ...(authToken && { Authorization: `Bearer ${authToken}` }),
-    },
-  });
-};
-
-// Create a server action for handling the auth token
-async function handleAuthToken(response: Response) {
-  'use server';
-
-  const authToken = response.headers.get('vendure-auth-token');
-  if (authToken) {
-    await setAuthTokenCookie(authToken);
-  }
-  return response.json();
-}
-
 export const shopClient = createClient({
-  url: env.VENDURE_API_URL,
+  credentials: 'include',
   fetcher: async (operation) => {
-    const response = await fetch(env.VENDURE_API_URL, {
+    const authToken = await getToken();
+    return fetch(env.VENDURE_API_URL ?? '', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        ...(authToken && { Authorization: `Bearer ${authToken}` }),
       },
       body: JSON.stringify(operation),
+    }).then(async (response) => {
+      const token = response.headers.get('vendure-auth-token');
+      if (token) {
+        await setAuthTokenCookie(token);
+      }
+      return response.json();
     });
-
-    // Use the server action to handle the auth token
-    return handleAuthToken(response);
-  },
-  headers: async () => {
-    const authToken = await getAuthTokenCookie();
-    return {
-      ...(authToken && { Authorization: `Bearer ${authToken}` }),
-    };
   },
 });

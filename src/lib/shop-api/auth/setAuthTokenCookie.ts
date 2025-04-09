@@ -1,4 +1,5 @@
 'server-only';
+'use server';
 
 import { cookies } from 'next/headers';
 import { authCookieOptions, SHOP_AUTH_TOKEN_COOKIE } from './constants';

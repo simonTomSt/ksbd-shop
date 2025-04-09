@@ -5,17 +5,16 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { redirect } from 'next/navigation';
 
 import { routing } from '@/lib/i18n/routing';
+import { getAuthTokenCookie } from '@/lib/shop-api/auth/getAuthTokenCookie';
 import { fontSans } from '@/lib/styles/fonts';
 import { AppProviders } from '@/modules/providers/AppProviders';
 
 export const metadata: Metadata = {
   title: {
-    default:
-      'KSBD – Kompleksowy System Budowy Domu | Nowoczesne Materiały Budowlane Przyszłości',
+    default: 'KSBD – Kompleksowy System Budowy Domu | Nowoczesne Materiały Budowlane Przyszłości',
     template: `%s - Ksbd.pl`,
   },
-  description:
-    'KSBD – Kompleksowy System Budowy Domu | Nowoczesne Materiały Budowlane Przyszłości',
+  description: 'KSBD – Kompleksowy System Budowy Domu | Nowoczesne Materiały Budowlane Przyszłości',
   icons: {
     icon: '/images/logo-compact.png',
   },
@@ -41,17 +40,16 @@ export default async function AppLayout({
     redirect(routing.defaultLocale);
   }
 
+  const authToken = await getAuthTokenCookie();
+
   return (
     <html suppressHydrationWarning lang={locale}>
       <head />
-      <body
-        className={clsx(
-          'min-h-screen bg-background font-sans antialiased',
-          fontSans.variable,
-        )}
-      >
+      <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
         <NextIntlClientProvider locale={locale}>
-          <AppProviders locale={locale}>{children}</AppProviders>
+          <AppProviders locale={locale} authToken={authToken}>
+            {children}
+          </AppProviders>
         </NextIntlClientProvider>
       </body>
     </html>
