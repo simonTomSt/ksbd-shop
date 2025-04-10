@@ -1,12 +1,7 @@
 'use client';
-import {
-  HeartIcon,
-  MagnifyingGlassIcon,
-  UserIcon,
-} from '@heroicons/react/24/outline';
+import { HeartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Button } from '@heroui/button';
 import { Divider } from '@heroui/divider';
-import { User } from '@heroui/user';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
@@ -16,17 +11,12 @@ import { pathnames } from '@/lib/config/pathnames';
 import { useIsPathActive } from '@/lib/hooks/useIsPathActive';
 import { CartDrawerButton } from '@/modules/cart/components/drawer/CartDrawerButton';
 import { UILink } from '@/modules/common/UILink';
+import { UserAvatar, UserAvatarMobile } from './UserAvatar';
 
 const ThemeSwitcher = dynamic(() => import('./ThemeSwitcher'), {
   ssr: false,
   loading: () => (
-    <Button
-      disabled
-      isIconOnly
-      aria-label="shopping cart"
-      size="lg"
-      variant="light"
-    />
+    <Button disabled isIconOnly aria-label="shopping cart" size="lg" variant="light" />
   ),
 });
 
@@ -48,20 +38,7 @@ export const TopBar = () => {
 
         <div className="flex justify-end items-center">
           <div className="hidden md:block min-w-[132px]">
-            <User
-              avatarProps={{
-                fallback: <UserIcon className="w-6 h-6" />,
-                classNames: {
-                  base: 'bg-transparent',
-                },
-              }}
-              description={
-                <UILink href={pathnames.account.path} size="sm">
-                  <span className="font-medium">Zaloguj się</span>
-                </UILink>
-              }
-              name="Panel klienta"
-            />
+            <UserAvatar />
           </div>
 
           <Button
@@ -75,17 +52,8 @@ export const TopBar = () => {
           >
             <MagnifyingGlassIcon className="w-6 h-6" />
           </Button>
-          <Button
-            isIconOnly
-            aria-label="shopping cart"
-            as={UILink}
-            className="md:hidden"
-            href={pathnames.signIn.path}
-            size="lg"
-            variant="light"
-          >
-            <UserIcon className="w-6 h-6" />
-          </Button>
+
+          <UserAvatarMobile />
 
           <div className="h-9 px-0 md:px-4">
             <Divider orientation="vertical" />
@@ -97,11 +65,7 @@ export const TopBar = () => {
             isIconOnly
             aria-label="shopping cart"
             as={UILink}
-            color={
-              checkIsPathActive(pathnames.favorites.path)
-                ? 'primary'
-                : 'default'
-            }
+            color={checkIsPathActive(pathnames.favorites.path) ? 'primary' : 'default'}
             href={pathnames.favorites.path}
             size="lg"
             variant="light"

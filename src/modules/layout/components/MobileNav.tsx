@@ -17,6 +17,8 @@ import { getMobileNavLinks } from '../utils/getNavLinks';
 
 import { useIsPathActive } from '@/lib/hooks/useIsPathActive';
 import { UILink } from '@/modules/common/UILink';
+import { useAuth } from '@/modules/providers/AuthProvider';
+import { ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
 
 export const AcmeLogo = () => {
   return (
@@ -36,6 +38,7 @@ export const MobileNav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navLinks = getMobileNavLinks(t);
   const checkActivePath = useIsPathActive();
+  const { currentCustomer } = useAuth();
 
   return (
     <Navbar
@@ -85,6 +88,17 @@ export const MobileNav = () => {
             </NavbarMenuItem>
           );
         })}
+        {currentCustomer && (
+          <NavbarMenuItem>
+            <button
+              className="text-danger flex items-center gap-2 font-medium"
+              // onPress={() => signOutMutation.mutate()}
+            >
+              <ArrowLeftStartOnRectangleIcon className="w-6 h-6" />
+              <span>Wyloguj się</span>
+            </button>
+          </NavbarMenuItem>
+        )}
       </NavbarMenu>
     </Navbar>
   );

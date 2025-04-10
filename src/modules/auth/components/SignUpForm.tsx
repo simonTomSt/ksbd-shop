@@ -155,11 +155,11 @@ export const SignUpForm = () => {
           {t('submit')}
         </Button>
 
-        <div className="text-center text-sm mt-2">
+        <div className="text-center text-xs mt-2">
           {t.rich('alreadyHaveAccount', {
             link: (chunks) => (
               <UILink href={pathnames.signIn.path} size="sm" underline="hover">
-                {chunks}
+                <span className="text-xs">{chunks}</span>
               </UILink>
             ),
           })}

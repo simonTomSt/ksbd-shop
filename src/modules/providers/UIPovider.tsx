@@ -22,7 +22,12 @@ export const UIProvider = ({ children, themeProps, locale }: Props) => {
   return (
     <HeroUIProvider locale={locale} navigate={router.push}>
       <NextThemesProvider {...themeProps}>
-        <ToastProvider placement="top-right" />
+        <ToastProvider
+          placement="top-center"
+          toastProps={{
+            timeout: 4000,
+          }}
+        />
 
         {children}
       </NextThemesProvider>

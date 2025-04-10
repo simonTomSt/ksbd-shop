@@ -5,8 +5,8 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { redirect } from 'next/navigation';
 
 import { routing } from '@/lib/i18n/routing';
-import { getAuthTokenCookie } from '@/lib/shop-api/auth/getAuthTokenCookie';
 import { fontSans } from '@/lib/styles/fonts';
+import { getCurrentCustomer } from '@/modules/auth/api/getCurrentCustomer';
 import { AppProviders } from '@/modules/providers/AppProviders';
 
 export const metadata: Metadata = {
@@ -40,14 +40,14 @@ export default async function AppLayout({
     redirect(routing.defaultLocale);
   }
 
-  const authToken = await getAuthTokenCookie();
+  const currentCustomer = await getCurrentCustomer();
 
   return (
     <html suppressHydrationWarning lang={locale}>
       <head />
       <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
         <NextIntlClientProvider locale={locale}>
-          <AppProviders locale={locale} authToken={authToken}>
+          <AppProviders locale={locale} currentCustomer={currentCustomer}>
             {children}
           </AppProviders>
         </NextIntlClientProvider>
