@@ -18,6 +18,36 @@
       "placeholder": "Wyszukaj produktów, które Cię interesują"
     }
   },
+  "footer": {
+    "links": {
+      "pages": {
+        "title": "Strony",
+        "home": "Strona główna",
+        "shop": "Sklep",
+        "calculator": "Kalkulator materiałów",
+        "ksbd": "Czym jest KSBD",
+        "about": "O nas",
+        "blog": "Blog",
+        "contact": "Kontakt"
+      },
+      "information": {
+        "title": "Informacje",
+        "privacyPolicy": "Polityka prywatności",
+        "termsOfService": "Regulamin sklepu",
+        "bankAccount": "Dane do przelewu",
+        "chemicalAdditives": "Chemia budowlana",
+        "laboratory": "Laboratorium budowlane",
+        "ueProjects": "Projekty unijne"
+      },
+      "socialMedia": {
+        "title": "Media społecznościowe"
+      }
+    }
+  },
+  "languages": {
+    "pl": "Polski",
+    "en": "Angielski"
+  },
   "cart": {
     "checkout": "Złóż zamówienie",
     "drawerTitle": "Twój koszyk",

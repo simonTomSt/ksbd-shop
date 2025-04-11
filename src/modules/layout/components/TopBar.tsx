@@ -25,7 +25,7 @@ export const TopBar = () => {
 
   return (
     <div className="hidden sm:flex z-40 w-full h-auto items-center justify-center top-0 inset-x-0 border-b border-divider backdrop-blur-lg backdrop-saturate-150 bg-background/70">
-      <div className="flex justify-between container mx-auto max-w-7xl px-6 h-[90px] lg:grid grid-cols-3 items-center">
+      <div className="flex justify-between app-container h-[90px] lg:grid grid-cols-3 items-center">
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border pr-4">
           <UILink href="/">
             <Image alt="logo" height={100} src="/images/logo.png" width={150} />

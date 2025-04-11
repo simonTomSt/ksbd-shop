@@ -59,6 +59,16 @@ export const pathnames = {
     pl: '/polityka-prywatności',
     en: '/privacy-policy',
   },
+  termsOfService: {
+    path: '/terms-of-service',
+    pl: '/regulamin-sklepu',
+    en: '/terms-of-service',
+  },
+  bankDetails: {
+    path: '/bank-details',
+    pl: '/dane-do-przelewu',
+    en: '/bank-details',
+  },
   verify: {
     path: '/verify',
     pl: '/weryfikacja',
