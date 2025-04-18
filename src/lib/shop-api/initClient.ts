@@ -4,13 +4,14 @@ import { createClient } from './graphql';
 type Args = {
   headers?: HeadersInit;
   onResponse?: (res: Response) => void;
+  locale?: string;
 };
 
-export const initClient = ({ headers, onResponse }: Args = {}) =>
+export const initClient = ({ headers, onResponse, locale = 'pl' }: Args = {}) =>
   createClient({
     credentials: 'include',
     fetcher: (operation) => {
-      return fetch(env.VENDURE_API_URL ?? '', {
+      return fetch(`${env.VENDURE_API_URL ?? ''}?languageCode=${locale}`, {
         method: 'POST',
         credentials: 'include',
         headers: {

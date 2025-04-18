@@ -1,20 +1,22 @@
 'use client';
+
 import { usePathname, useRouter } from '@/lib/i18n/navigation';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { Button } from '@heroui/button';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/dropdown';
 import { Locale, useLocale, useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export const LanguageSwitcher = () => {
   const router = useRouter();
   const t = useTranslations();
   const locale = useLocale();
   const pathname = usePathname();
-  const query = useParams();
+  const searchParams = useSearchParams();
 
-  const onSelectChange = (nextLocale: Locale) =>
-    router.replace({ pathname, query }, { locale: nextLocale });
+  const onSelectChange = (nextLocale: Locale) => {
+    router.push(`${nextLocale}/${pathname}?${searchParams.toString()}`);
+  };
 
   return (
     <Dropdown>

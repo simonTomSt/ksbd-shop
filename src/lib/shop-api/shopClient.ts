@@ -1,3 +1,4 @@
+import { getLocale } from 'next-intl/server';
 import { getToken } from './actionts';
 import { setAuthTokenCookie } from './auth/setAuthTokenCookie';
 
@@ -8,7 +9,8 @@ export const shopClient = createClient({
   credentials: 'include',
   fetcher: async (operation) => {
     const authToken = await getToken();
-    return fetch(env.VENDURE_API_URL ?? '', {
+    const locale = await getLocale();
+    return fetch(`${env.VENDURE_API_URL ?? ''}?languageCode=${locale}`, {
       method: 'POST',
       credentials: 'include',
       headers: {

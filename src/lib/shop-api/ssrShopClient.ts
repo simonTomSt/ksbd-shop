@@ -1,4 +1,5 @@
 'server-only';
+import { getLocale } from 'next-intl/server';
 import { getAuthTokenCookie } from './auth/getAuthTokenCookie';
 import { initClient } from './initClient';
 
@@ -9,5 +10,6 @@ export const ssrShopClient = async () => {
     headers: {
       ...(authToken && { Authorization: `Bearer ${authToken}` }),
     },
+    locale: await getLocale(),
   });
 };

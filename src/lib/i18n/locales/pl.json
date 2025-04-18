@@ -160,6 +160,12 @@
       }
     }
   },
+  "products": {
+    "noProductsFound": {
+      "title": "Nie znaleziono produktów",
+      "description": "Nie znaleziono produktów spełniających Twoje kryteria"
+    }
+  },
   "errorCodes": {
     "MISSING_PASSWORD_ERROR": "Brak podanego hasła",
     "NATIVE_AUTH_STRATEGY_ERROR": "Błąd uwierzytelniania",
