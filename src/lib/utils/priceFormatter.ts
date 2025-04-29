@@ -1,7 +1,7 @@
 export const priceFormatter = (
   price: number,
   locale: string = 'pl-PL',
-  currency: string = 'pln',
+  currency: string = 'PLN',
 ) => {
   const formattedPrice = price / 100;
   const formatter = new Intl.NumberFormat(locale, {

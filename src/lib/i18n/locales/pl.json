@@ -161,10 +161,14 @@
     }
   },
   "products": {
+    "allProducts": {
+      "title": "Zobacz wszystkie produkty"
+    },
     "noProductsFound": {
       "title": "Nie znaleziono produktów",
       "description": "Nie znaleziono produktów spełniających Twoje kryteria"
-    }
+    },
+    "categories": "Kategorie"
   },
   "errorCodes": {
     "MISSING_PASSWORD_ERROR": "Brak podanego hasła",

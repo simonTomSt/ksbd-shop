@@ -14,7 +14,7 @@ type SearchProductCardProps = {
 export const SearchProductCard = ({ product }: SearchProductCardProps) => {
   return (
     <PureLink href={`pathnames.product/${product.slug}`} className="w-full block group">
-      <Card isPressable isHoverable shadow="none" className="w-full relative">
+      <Card isPressable as="article" isHoverable shadow="none" className="w-full relative">
         <div className="flex items-center gap-2">
           <Image
             as={NextImage}
@@ -25,7 +25,7 @@ export const SearchProductCard = ({ product }: SearchProductCardProps) => {
           />
           <div className="flex flex-col gap-1 items-start">
             <p className="text-base font-medium">{product.productVariantName}</p>
-            {isSinglePrice(product.priceWithTax) && <Amount amount={product.priceWithTax.value} />}
+            {isSinglePrice(product.priceWithTax) && <Amount value={product.priceWithTax.value} />}
           </div>
         </div>
 

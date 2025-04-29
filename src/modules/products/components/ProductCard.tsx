@@ -1,31 +1,66 @@
+import { Product } from '@/lib/shop-api/graphql';
+import { AddToCartIconButton } from '@/modules/cart/components/add-to-cart/AddToCartIconButton';
+import { Amount } from '@/modules/common/Amount';
+import { UILink } from '@/modules/common/UILink';
 import { Card, CardBody, CardFooter } from '@heroui/card';
 import { Image } from '@heroui/image';
+import { cn } from '@heroui/theme';
 import NextImage from 'next/image';
 
-type ProductCardProps = {
-  product: SearchProduct;
-};
+export interface ProductCardProps {
+  product: Product;
+  className?: string;
+}
 
-export const ProductCard = ({ product }: ProductCardProps) => {
-  const { name, featuredAsset } = product;
-  const price = variants[0].price;
+export const ProductCard = ({ product, className }: ProductCardProps) => {
+  const { name, slug, featuredAsset, assets, variants } = product;
+  const imageUrl =
+    featuredAsset?.source ||
+    featuredAsset?.preview ||
+    assets?.[0]?.preview ||
+    assets?.[0]?.source ||
+    '/images/product-placeholder.png';
+
+  const [productVariant] = variants;
+
   return (
-    <Card isPressable shadow="sm">
-      <CardBody className="overflow-visible p-0">
-        <Image
-          as={NextImage}
-          alt={name}
-          className="w-full object-cover h-[140px]"
-          radius="lg"
-          shadow="sm"
-          src={featuredAsset?.source}
-          width="100%"
-        />
-      </CardBody>
-      <CardFooter className="text-small justify-between">
-        <b>{name}</b>
-        <p className="text-default-500">{price}</p>
-      </CardFooter>
-    </Card>
+    <UILink href={`/products/${slug}`} className={cn('block w-full', className)}>
+      <Card
+        isPressable
+        as="article"
+        radius="sm"
+        shadow="sm"
+        className="overflow-hidden hover:shadow-md transition-shadow w-full group relative"
+      >
+        <CardBody className="overflow-visible p-0">
+          <div className="relative aspect-w-1 aspect-h-1 w-full">
+            <Image
+              isBlurred
+              as={NextImage}
+              alt={name}
+              className="w-full object-cover h-[240px]"
+              height={240}
+              width={336}
+              src={imageUrl}
+              radius="none"
+            />
+          </div>
+        </CardBody>
+        <CardFooter className="flex flex-col items-start p-3">
+          <h3 className="text-base font-semibold line-clamp-1">{name}</h3>
+          <div className="flex justify-between w-full items-center mt-2">
+            <Amount className="text-lg" value={productVariant.priceWithTax} />
+          </div>
+        </CardFooter>
+
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
+          <AddToCartIconButton
+            color="secondary"
+            productVariantId={productVariant.id}
+            quantity={1}
+          />
+        </div>
+      </Card>
+    </UILink>
   );
 };

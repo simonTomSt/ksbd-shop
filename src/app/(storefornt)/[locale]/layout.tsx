@@ -1,5 +1,4 @@
 import '@/lib/styles/globals.css';
-import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { redirect } from 'next/navigation';
@@ -45,7 +44,7 @@ export default async function AppLayout({
   return (
     <html suppressHydrationWarning lang={locale}>
       <head />
-      <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+      <body className={`min-h-screen bg-background font-sans antialiased ${fontSans.variable}`}>
         <NextIntlClientProvider locale={locale}>
           <AppProviders locale={locale} currentCustomer={currentCustomer}>
             {children}

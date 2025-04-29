@@ -6,16 +6,17 @@ import { useLocale } from 'next-intl';
 
 type AmountProps = {
   withTax?: boolean;
-  amount: number;
+  value: number;
   className?: string;
 };
 
-export const Amount = ({ amount, className, withTax = true }: AmountProps) => {
+export const Amount = ({ value, className, withTax = true }: AmountProps) => {
+  const currency = 'PLN';
   const locale = useLocale();
 
   return (
     <span className={cn(className)}>
-      <span>{priceFormatter(amount, locale)}</span>
+      <span>{priceFormatter(value, locale, currency)}</span>
       {withTax && <span className="ml-1.5 text-sm text-foreground-500">{'(brutto)'}</span>}
     </span>
   );

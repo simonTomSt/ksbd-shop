@@ -9,6 +9,11 @@ export const pathnames = {
     pl: '/sklep',
     en: '/shop',
   },
+  shopCollection: {
+    path: '/shop/[collection]',
+    pl: '/sklep/[collection]',
+    en: '/shop/[collection]',
+  },
   aboutUs: {
     path: '/about-us',
     pl: '/o-nas',
@@ -83,5 +88,10 @@ export const pathnames = {
     path: '/password-reset',
     pl: '/resetowanie-hasła',
     en: '/password-reset',
+  },
+  productDetails: {
+    path: '/products/[slug]',
+    pl: '/produkty/[slug]',
+    en: '/products/[slug]',
   },
 };
