@@ -5,6 +5,7 @@ import { Button, ButtonProps } from '@heroui/button';
 import { pathnames } from '@/lib/config/pathnames';
 import { useCartDrawerOpened } from '@/lib/hooks/useCartDrawerOpened';
 import { UILink } from '@/modules/common/UILink';
+
 type CartButtonProps = ButtonProps;
 
 export const CartDrawerButton = (props: CartButtonProps) => {

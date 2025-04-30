@@ -1,7 +1,9 @@
+import { pathnames } from '@/lib/config/pathnames';
 import { Product } from '@/lib/shop-api/graphql';
 import { AddToCartIconButton } from '@/modules/cart/components/add-to-cart/AddToCartIconButton';
 import { Amount } from '@/modules/common/Amount';
 import { UILink } from '@/modules/common/UILink';
+import { AddToWishlistButton } from '@/modules/whishlist/components/AddToWishlistButton';
 import { Card, CardBody, CardFooter } from '@heroui/card';
 import { Image } from '@heroui/image';
 import { cn } from '@heroui/theme';
@@ -24,7 +26,13 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
   const [productVariant] = variants;
 
   return (
-    <UILink href={`/products/${slug}`} className={cn('block w-full', className)}>
+    <UILink
+      href={{
+        pathname: pathnames.productDetails.path,
+        params: { slug },
+      }}
+      className={cn('block w-full', className)}
+    >
       <Card
         isPressable
         as="article"
@@ -53,7 +61,8 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
           </div>
         </CardFooter>
 
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 flex flex-col gap-3">
+          <AddToWishlistButton color="secondary" />
           <AddToCartIconButton
             color="secondary"
             productVariantId={productVariant.id}
