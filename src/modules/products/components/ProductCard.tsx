@@ -8,6 +8,7 @@ import { Card, CardBody, CardFooter } from '@heroui/card';
 import { Image } from '@heroui/image';
 import { cn } from '@heroui/theme';
 import NextImage from 'next/image';
+import { getProductImage } from '../utils/getProductImage';
 
 export interface ProductCardProps {
   product: Product;
@@ -15,13 +16,8 @@ export interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, className }: ProductCardProps) => {
-  const { name, slug, featuredAsset, assets, variants } = product;
-  const imageUrl =
-    featuredAsset?.source ||
-    featuredAsset?.preview ||
-    assets?.[0]?.preview ||
-    assets?.[0]?.source ||
-    '/images/product-placeholder.png';
+  const { name, slug, variants } = product;
+  const imageUrl = getProductImage(product);
 
   const [productVariant] = variants;
 

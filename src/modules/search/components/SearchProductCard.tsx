@@ -1,3 +1,4 @@
+import { pathnames } from '@/lib/config/pathnames';
 import { isSinglePrice } from '@/lib/shop-api/graphql';
 import { AddToCartIconButton } from '@/modules/cart/components/add-to-cart/AddToCartIconButton';
 import { Amount } from '@/modules/common/Amount';
@@ -13,7 +14,13 @@ type SearchProductCardProps = {
 
 export const SearchProductCard = ({ product }: SearchProductCardProps) => {
   return (
-    <PureLink href={`pathnames.product/${product.slug}`} className="w-full block group">
+    <PureLink
+      href={{
+        pathname: pathnames.productDetails.path,
+        params: { slug: product.slug },
+      }}
+      className="w-full block group"
+    >
       <Card isPressable as="article" isHoverable shadow="none" className="w-full relative">
         <div className="flex items-center gap-2">
           <Image
