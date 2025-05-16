@@ -1,3 +1,3 @@
-export default function ShopCollectionPage() {
-  return <div>ShopCollectionPage</div>;
-}
+import { CollectionProductsTemplate } from '@/modules/products/templates/CollectionProductsTemplate';
+
+export default CollectionProductsTemplate;

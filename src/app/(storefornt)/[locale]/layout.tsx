@@ -7,6 +7,7 @@ import { routing } from '@/lib/i18n/routing';
 import { fontSans } from '@/lib/styles/fonts';
 import { getCurrentCustomer } from '@/modules/auth/api/getCurrentCustomer';
 import { AppProviders } from '@/modules/providers/AppProviders';
+import { getWishlist } from '@/modules/whishlist/utils/getWishlist';
 
 export const metadata: Metadata = {
   title: {
@@ -40,13 +41,14 @@ export default async function AppLayout({
   }
 
   const currentCustomer = await getCurrentCustomer();
+  const wishlist = await getWishlist();
 
   return (
     <html suppressHydrationWarning lang={locale}>
       <head />
       <body className={`min-h-screen bg-background font-sans antialiased ${fontSans.variable}`}>
         <NextIntlClientProvider locale={locale}>
-          <AppProviders locale={locale} currentCustomer={currentCustomer}>
+          <AppProviders locale={locale} currentCustomer={currentCustomer} wishlist={wishlist}>
             {children}
           </AppProviders>
         </NextIntlClientProvider>

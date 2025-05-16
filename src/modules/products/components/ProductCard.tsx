@@ -58,7 +58,7 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
         </CardFooter>
 
         <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 flex flex-col gap-3">
-          <AddToWishlistButton color="secondary" />
+          <AddToWishlistButton color="secondary" productId={productVariant.id} />
           <AddToCartIconButton
             color="secondary"
             productVariantId={productVariant.id}

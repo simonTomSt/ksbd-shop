@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
 import { getCollections } from '../api/getCollections';
 import { getProducts } from '../api/getProducts';
 import { CollectionsSidebar } from '../components/CollectionsSidebar';
@@ -7,11 +6,6 @@ import { ListTypeToggler } from '../components/ListTypeToggler';
 import { ProductsGridList } from '../components/ProductsGridList';
 import { ProductsWideList } from '../components/ProductsWideList';
 import { getProductsListType } from '../utils/getPorductsListType';
-
-const getListType = async () => {
-  const cookieStore = await cookies();
-  return cookieStore.get('productListType')?.value ?? 'grid';
-};
 
 export const AllProductsListTemplate = async () => {
   const [t, { products }, collections, listType] = await Promise.all([

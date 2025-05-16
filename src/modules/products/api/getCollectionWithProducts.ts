@@ -36,9 +36,50 @@ export const getCollectionWithProducts = async ({
           id: true,
           priceWithTax: true,
           stockLevel: true,
+          product: {
+            __typename: true,
+            id: true,
+            createdAt: true,
+            updatedAt: true,
+            languageCode: true,
+            name: true,
+            slug: true,
+            description: true,
+            enabled: true,
+            featuredAsset: {
+              __typename: true,
+              source: true,
+              preview: true,
+            },
+            assets: {
+              __typename: true,
+              source: true,
+              preview: true,
+            },
+            variants: {
+              id: true,
+              priceWithTax: true,
+            },
+            variantList: {
+              totalItems: true,
+            },
+            optionGroups: {
+              id: true,
+            },
+            facetValues: {
+              id: true,
+            },
+            translations: {
+              id: true,
+            },
+            collections: {
+              id: true,
+            },
+          },
         },
       },
     },
   });
+  console.log(products);
   return products.collection;
 };
