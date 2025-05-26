@@ -1,3 +1,3 @@
-export default function ProductPage() {
-  return <div>ProductPage</div>;
-}
+import { ProductTemplate } from '@/modules/products/templates/ProductTemplate';
+
+export default ProductTemplate;

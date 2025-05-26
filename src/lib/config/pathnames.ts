@@ -39,6 +39,16 @@ export const pathnames = {
     pl: '/koszyk',
     en: '/cart',
   },
+  checkout: {
+    path: '/checkout',
+    pl: '/podsumowanie',
+    en: '/checkout',
+  },
+  orderConfirmation: {
+    path: '/order-confirmation',
+    pl: '/potwierdzenie-zamówienia',
+    en: '/order-confirmation',
+  },
   ue: {
     path: '/ue-projects',
     pl: '/projekty-unijne',

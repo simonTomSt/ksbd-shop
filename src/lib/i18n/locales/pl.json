@@ -53,6 +53,7 @@
     "drawerTitle": "Twój koszyk",
     "goToCartPage": "Przejdź do koszyka",
     "emptyCart": "Twój koszyk jest pusty",
+    "addToCart": "Dodaj do koszyka",
     "item": {
       "quantity": "Ilość",
       "remove": "Usuń"
@@ -169,6 +170,46 @@
       "description": "Nie znaleziono produktów spełniających Twoje kryteria"
     },
     "categories": "Kategorie"
+  },
+  "productDetails": {
+    "addToWishlist": "Dodaj do ulubionych",
+    "availableVariants": "Dostępne warianty",
+    "inStock": "W magazynie",
+    "outOfStock": "Brak w magazynie",
+    "productDetails": "Szczegóły produktu"
+  },
+  "checkout": {
+    "title": "Zamówienie",
+    "shippingStep": "Dostawa",
+    "billingStep": "Faktura",
+    "paymentStep": "Płatność",
+    "shippingAddress": "Adres dostawy",
+    "billingAddress": "Adres faktury",
+    "paymentMethod": "Metoda płatności",
+    "orderSummary": "Podsumowanie zamówienia",
+    "total": "Razem",
+    "address": {
+      "fullName": "Imię i nazwisko",
+      "streetLine1": "Ulica",
+      "streetLine2": "Lokal, mieszkanie, itp. (opcjonalnie)",
+      "city": "Miasto",
+      "province": "Województwo",
+      "postalCode": "Kod pocztowy",
+      "country": "Kraj",
+      "required": "To pole jest wymagane",
+      "continue": "Kontynuuj"
+    },
+    "shipping": {
+      "loading": "Ładowanie metod dostawy...",
+      "noMethods": "Brak dostępnych metod dostawy",
+      "selectMethod": "Wybierz metodę dostawy"
+    },
+    "payment": {
+      "loading": "Ładowanie metod płatności...",
+      "noMethods": "Brak dostępnych metod płatności",
+      "selectMethod": "Wybierz metodę płatności",
+      "completeOrder": "Złóż zamówienie"
+    }
   },
   "errorCodes": {
     "MISSING_PASSWORD_ERROR": "Brak podanego hasła",
