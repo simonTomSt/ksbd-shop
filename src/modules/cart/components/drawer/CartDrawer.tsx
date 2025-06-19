@@ -65,7 +65,6 @@ export const CartDrawer = () => {
                     as={UILink}
                     href={pathnames.cart.path}
                     color="secondary"
-                    onPress={onClose}
                     className="flex-1"
                   >
                     {t('goToCartPage')}
@@ -75,7 +74,6 @@ export const CartDrawer = () => {
                     as={PureLink}
                     href={pathnames.checkout.path}
                     color="primary"
-                    onPress={onClose}
                     className="flex-1"
                   >
                     {t('checkout')}

@@ -30,12 +30,14 @@ export const AddToWishlistButton = ({
   console.log('isInWishlist', isInWishlist);
 
   const handleClick = () => {
+    const userId = currentCustomer?.id || 'unknown';
+
     if (isInWishlist) {
-      removeFromWishlistAction(productId);
+      removeFromWishlistAction(productId, userId);
       return;
     }
 
-    addToWishlistAction(productId, currentCustomer?.id || 'unknown');
+    addToWishlistAction(productId, userId);
   };
 
   return (
